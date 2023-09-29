@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+    <!-- 設定類別別名, 僅縮短名稱用 -->
+    <typeAliases>
+        <typeAlias alias="Boolean" type="java.lang.Boolean" />
+        <typeAlias alias="String" type="java.lang.String" />
+        <typeAlias alias="Timestamp" type="java.sql.Timestamp" />
+    </typeAliases>
+    <!-- 環境設定 -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <!-- DataSource設定 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://localhost:3306/bookshop" />
+                <property name="username" value="root" />
+                <property name="password" value="password" />
+            </dataSource>
+        </environment>
+    </environments>
+    <!-- 指定映射檔(xxxMapper.xml) -->
+    <mappers>
+        <mapper resource="mapper/bookMapper.xml" />
+    </mappers>
+</configuration>
