@@ -17,7 +17,27 @@
         select * from Book
     </select>
     <select id="selectByIsbn" resultMap="bookResultMap">
-        select  * from  Book where  isbn=#{isbn};
+        select  * from  Book where  isbn=#{isbn} ;
+    </select>
+    <select id="selectPublisherByBook" resultType="String">
+        select  pub.publisher_name from Book b
+                  join publisher  pub on b.publisher_id =pub.publisher_id
+                  where b.book_name= #{bookName}
     </select>
 
+    <select id="selectBook" resultMap="bookResultMap">
+        select  * from Book b
+                    where 1=1
+                    <if test = " bookName != null ">
+                        and b.book_name= #{bookName}
+                    </if>
+                    <if test = " isbn != null" >
+                        and isbn= #{isbn}
+                    </if>
+                    <if test = "author != null">
+                        and author like #{author}
+                    </if>
+
+
+    </select>
 </mapper>

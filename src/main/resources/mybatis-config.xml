@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
+    <!-- 其他配置 -->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
     <!-- 設定類別別名, 僅縮短名稱用 -->
     <typeAliases>
         <typeAlias alias="Boolean" type="java.lang.Boolean" />
@@ -42,4 +46,6 @@
 <!--        第二種: 掃描Mapper(只需寫一次)-->
 <!--            <package name="org.example.mapper" />-->
     </mappers>
+
+
 </configuration>

@@ -20,10 +20,10 @@ public class Book {
     public  String toString(){
         return String.format(
                 " isbn : %s  ,\n " +
-                "isbn : %s  ,\n " +
-                "isbn : %f  ,\n " +
-                        "isbn : %s  ,\n " +
-                        "isbn : %s  ,\n " +
-                        "isbn : %s  \n ", isbn, bookName, price,author,publicationDate,publisherId);
+                "bookName : %s  ,\n " +
+                "price : %f  ,\n " +
+                        "author : %s  ,\n " +
+                        "publicationDate : %s  ,\n " +
+                        "publisherId : %s  \n ", isbn, bookName, price,author,publicationDate,publisherId);
     }
 }
