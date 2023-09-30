@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--        設定映射對象-->
 <mapper namespace="org.example.mapper.BookMapper">
+<!--    預設屬性名稱映射，但有些名稱有底線 需另外映射-->
     <resultMap id="bookResultMap" type="org.example.entity.Book">
         <id property="isbn" column="isbn" />
         <result property="bookName" column="book_name" />
@@ -12,7 +13,11 @@
         <result property="publicationDate" column="publication_date" />
         <result property="publisherId" column="publisher_id" />
     </resultMap>
-    <select id="selectAll" resultMap="bookResultMap" >
+    <select id="selectAll" resultMap="bookResultMap">
         select * from Book
     </select>
+    <select id="selectByIsbn" resultMap="bookResultMap">
+        select  * from  Book where  isbn=#{isbn};
+    </select>
+
 </mapper>

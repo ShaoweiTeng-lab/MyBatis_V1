@@ -6,8 +6,10 @@
         <typeAlias alias="Boolean" type="java.lang.Boolean" />
         <typeAlias alias="String" type="java.lang.String" />
         <typeAlias alias="Timestamp" type="java.sql.Timestamp" />
+        <typeAlias alias="book" type="org.example.entity.Book" />
     </typeAliases>
     <!-- 環境設定 -->
+<!-- environments default 是指 使用哪個database配置-->
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC" />
@@ -19,9 +21,25 @@
                 <property name="password" value="password" />
             </dataSource>
         </environment>
+
+        <!-- 另一個数据库环境2 -->
+        <environment id="test2">
+            <transactionManager type="JDBC" />
+            <!-- DataSource設定 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://localhost:3306/bookshop" />
+                <property name="username" value="root" />
+                <property name="password" value="password" />
+            </dataSource>
+        </environment>
+
     </environments>
     <!-- 指定映射檔(xxxMapper.xml) -->
     <mappers>
+<!--        第一種: 針對每個mapper.xml 配置一個mapper -->
         <mapper resource="mapper/bookMapper.xml" />
+<!--        第二種: 掃描Mapper(只需寫一次)-->
+<!--            <package name="org.example.mapper" />-->
     </mappers>
 </configuration>

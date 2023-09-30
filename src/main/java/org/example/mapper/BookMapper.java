@@ -9,4 +9,5 @@ import java.util.List;
 public interface BookMapper {
     //需與 xml內的id名稱相同
     List<Book> selectAll();
+    Book selectByIsbn(String isbn);
 }
