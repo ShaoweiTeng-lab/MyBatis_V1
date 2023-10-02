@@ -1,6 +1,7 @@
 package org.example.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.example.dto.BookInsertDto;
 import org.example.dto.BookQuery;
 import org.example.entity.Book;
 
@@ -15,4 +16,6 @@ public interface BookMapper {
     String selectPublisherByBook(String bookName);
 
     List<Book> selectBook (BookQuery bookQuery);
+
+    Integer insertBook(BookInsertDto bookInsertDto);
 }

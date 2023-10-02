@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--        設定映射對象-->
+<mapper namespace="org.example.mapper.MemberMapper">
+
+<!--    預設屬性名稱映射，但有些名稱有底線 需另外映射-->
+    <resultMap id="bookResultMap" type="org.example.entity.Book">
+        <id property="isbn" column="isbn" />
+        <result property="bookName" column="book_name" />
+        <result property="price" column="price" />
+        <result property="author" column="author" />
+        <result property="publicationDate" column="publication_date" />
+        <result property="publisherId" column="publisher_id" />
+    </resultMap>
+    <insert id="insertBook">
+        insert  into book(isbn,book_name,price,author,publication_date,publisher_id) values(
+                                                                                            #{isbn},
+                                                                                            #{bookName},
+                                                                                            #{price},
+                                                                                            #{author},
+                                                                                            #{publicationDate},
+                                                                                            #{publisherId}
+                                                                                           )
+    </insert>
+
+</mapper>

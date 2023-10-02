@@ -12,6 +12,9 @@
         <typeAlias alias="Timestamp" type="java.sql.Timestamp" />
         <typeAlias alias="book" type="org.example.entity.Book" />
     </typeAliases>
+    <typeHandlers>
+        <typeHandler handler="org.example.typeHandler.OrderEnumTypeHandler" javaType="org.example.dto.OrderEnum"/>
+    </typeHandlers>
     <!-- 環境設定 -->
 <!-- environments default 是指 使用哪個database配置-->
     <environments default="development">
@@ -46,6 +49,4 @@
 <!--        第二種: 掃描Mapper(只需寫一次)-->
 <!--            <package name="org.example.mapper" />-->
     </mappers>
-
-
 </configuration>
