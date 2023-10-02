@@ -6,23 +6,44 @@
 <mapper namespace="org.example.mapper.MemberMapper">
 
 <!--    預設屬性名稱映射，但有些名稱有底線 需另外映射-->
-    <resultMap id="bookResultMap" type="org.example.entity.Book">
-        <id property="isbn" column="isbn" />
-        <result property="bookName" column="book_name" />
-        <result property="price" column="price" />
-        <result property="author" column="author" />
-        <result property="publicationDate" column="publication_date" />
-        <result property="publisherId" column="publisher_id" />
+    <resultMap id="memberResultMap" type="org.example.entity.Member">
+        <id property="memberId" column="member_Id" />
+        <result property="account" column="account" />
+        <result property="name" column="name" />
+        <result property="password" column="password" />
+        <result property="email" column="email" />
+        <result property="createdDate" column="created_Date" />
     </resultMap>
-    <insert id="insertBook">
-        insert  into book(isbn,book_name,price,author,publication_date,publisher_id) values(
-                                                                                            #{isbn},
-                                                                                            #{bookName},
-                                                                                            #{price},
-                                                                                            #{author},
-                                                                                            #{publicationDate},
-                                                                                            #{publisherId}
-                                                                                           )
+    <insert id="insertMember" useGeneratedKeys="true" keyProperty="memberId">
+        insert  into Member(account,name,password,email)
+                     values (#{account},
+                             #{name},
+                             #{password},
+                             #{email});
     </insert>
+
+    <update id="updateMember">
+        update  Member
+        <set>
+            <if test ="account !=null and account!=''"> account = #{account},</if>
+            <if test ="name  !=null and name !=''">  `name` = #{name},</if>
+            <if test ="password !=null and password!=''"> password = #{password},</if>
+            <if test ="email  !=null and email !=''">email  = #{email },</if>
+        </set>
+        WHERE member_Id = #{memberId}
+    </update>
+
+    <delete id ="deleteMemberById">
+        delete  from Member
+                where member_Id =#{memberId}
+    </delete>
+
+    <delete id="deleteMemberByIds" parameterType="java.util.List">
+        DELETE FROM Member
+        WHERE member_Id IN
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 
 </mapper>
