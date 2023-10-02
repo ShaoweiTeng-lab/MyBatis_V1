@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.example.dto.*;
 import org.example.entity.Book;
+import org.example.entity.Member;
 import org.example.mapper.BookMapper;
 import org.example.mapper.MemberMapper;
 
@@ -23,11 +24,11 @@ public class MyBatisTest {
 //        selectPublisherByBook("R Cookbook");
 
         //複合式查詢
-//        BookQuery bookQuery =new BookQuery();
-//        bookQuery.setBookName("%B%");
-//        bookQuery.setOrder("book_name");
-//        bookQuery.setOrderEnum(OrderEnum.ASC);
-//        selectBookQuery(bookQuery);
+        BookQuery bookQuery =new BookQuery();
+        bookQuery.setBookName("Programming the Raspberry Pi");
+        bookQuery.setOrder("book_name");
+        bookQuery.setOrderEnum(OrderEnum.ASC);
+        selectBookQuery(bookQuery);
         //新增
 //        BookInsertDto bookInsertDto =new BookInsertDto();
 //        bookInsertDto.setIsbn("9781119017930");
@@ -55,13 +56,15 @@ public class MyBatisTest {
 //        updateMember(memberUpdateDto);
 
         //刪除特定
-//      deleteMemberById(2);
+//         deleteMemberById(1);
         //批量刪除
-        List<Integer> ids = new ArrayList<>();
-        ids.add(3);
-        ids.add(4);
-        deleteMemberByIds(ids);
+//        List<Integer> ids = new ArrayList<>();
+//        ids.add(3);
+//        ids.add(4);
+//        deleteMemberByIds(ids);
 
+        //多參數查詢
+//        selectMember();
     }
 
     public static void  bookSelectAll() throws IOException {
@@ -200,6 +203,21 @@ public class MyBatisTest {
         MemberMapper mapper =sqlSession.getMapper(MemberMapper.class);//傳入id 名稱
         int count=mapper.deleteMemberByIds(ids);
         System.out.println("影響行數 : "+count);
+        sqlSession.close();
+    }
+
+    public static  void selectMember()throws  IOException{
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);//拿到 Resource 底下的 xml
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);//透過stream 創立session factory
+
+        //獲取sqlSession ，用來執行sql
+        SqlSession sqlSession =sqlSessionFactory.openSession(true);//開true的話自動提交(預設是false)
+
+        //得到Mapper代理對象
+        MemberMapper mapper =sqlSession.getMapper(MemberMapper.class);//傳入id 名稱
+        List<Member> members=mapper.selectMember(2,null,null);
+        members.forEach(data-> System.out.println(data));
         sqlSession.close();
     }
 }

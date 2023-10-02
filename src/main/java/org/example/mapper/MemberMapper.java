@@ -1,8 +1,10 @@
 package org.example.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.example.dto.MemberInsertDto;
 import org.example.dto.MemberUpdateDto;
+import org.example.entity.Member;
 
 import java.util.List;
 
@@ -14,4 +16,6 @@ public interface MemberMapper {
 
     Integer deleteMemberById(Integer id);
     Integer deleteMemberByIds(List<Integer> ids);
+
+    List<Member> selectMember(@Param("memberId") Integer memberId, @Param("account") String account,@Param("name")  String name);
 }

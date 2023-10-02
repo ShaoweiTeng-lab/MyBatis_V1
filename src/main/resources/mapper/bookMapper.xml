@@ -30,13 +30,13 @@
         select  * from Book b
                     <where>
                         <if test = " bookName != null and bookName!='' ">
-                        and b.book_name like #{bookName}
+                        and b.book_name like concat('%',#{bookName},'%')
                         </if>
                         <if test = " isbn != null  and isbn!='' " >
-                            and isbn like #{isbn}
+                            and isbn like concat('%',#{isbn},'%')
                         </if>
                         <if test = " author != null  and author!='' ">
-                            and author like #{author}
+                            and author like concat('%',#{author},'%')
                         </if>
                     </where>
 

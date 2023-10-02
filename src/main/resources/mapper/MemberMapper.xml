@@ -21,7 +21,20 @@
                              #{password},
                              #{email});
     </insert>
-
+    <select id ="selectMember" resultMap="memberResultMap">
+        select  * from  member
+        <where>
+            <if test="memberId !=null">
+                member_Id=#{memberId}
+            </if>
+            <if test="account !=null">
+                account=#{account}
+            </if>
+            <if test="name != null">
+                `name` =#{name}
+            </if>
+        </where>
+    </select>
     <update id="updateMember">
         update  Member
         <set>
