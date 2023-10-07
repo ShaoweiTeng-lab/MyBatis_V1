@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--        設定映射對象-->
+<mapper namespace="org.example.mapper.OrderDetailMapper">
+    <resultMap id="bookResultMap" type="org.example.entity.Book">
+        <id property="isbn" column="isbn" />
+        <result property="bookName" column="book_name" />
+        <result property="price" column="price" />
+        <result property="author" column="author" />
+        <result property="publicationDate" column="publication_date" />
+        <result property="publisherId" column="publisher_id" />
+    </resultMap>
+    <!--    預設屬性名稱映射，但有些名稱有底線 需另外映射-->
+    <resultMap id="orderDetail" type="org.example.entity.OrderDetail">
+        <id property="orderId" column="order_Id" />
+        <id property="isbn" column="isbn" />
+        <result property="isbn" column="isbn" />
+        <result property="quantity" column="quantity" />
+<!--        建立映射-->
+        <association property="book" resultMap="bookResultMap">
+        </association>
+    </resultMap>
+    <select id = "getAllOrderDetail" resultMap="orderDetail">
+        select  * from  Order_Detail left join Book on  Order_Detail.isbn =book.isbn;
+    </select>
+
+    <select id = "getAllOrderDetailById" resultMap="orderDetail">
+        select  * from  Order_Detail left join Book on  Order_Detail.isbn =book.isbn where order_id =#{orderId};
+    </select>
+</mapper>

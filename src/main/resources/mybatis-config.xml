@@ -47,6 +47,7 @@
 <!--        第一種: 針對每個mapper.xml 配置一個mapper -->
         <mapper resource="mapper/bookMapper.xml" />
         <mapper resource="mapper/MemberMapper.xml" />
+        <mapper resource="mapper/OrderDetailMapper.xml" />
 <!--        第二種: 掃描Mapper(只需寫一次)-->
 <!--            <package name="org.example.mapper" />-->
     </mappers>

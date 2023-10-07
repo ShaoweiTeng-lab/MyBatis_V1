@@ -7,8 +7,10 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.example.dto.*;
 import org.example.entity.Book;
 import org.example.entity.Member;
+import org.example.entity.OrderDetail;
 import org.example.mapper.BookMapper;
 import org.example.mapper.MemberMapper;
+import org.example.mapper.OrderDetailMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,11 +26,11 @@ public class MyBatisTest {
 //        selectPublisherByBook("R Cookbook");
 
         //複合式查詢
-        BookQuery bookQuery =new BookQuery();
-        bookQuery.setBookName("Programming the Raspberry Pi");
-        bookQuery.setOrder("book_name");
-        bookQuery.setOrderEnum(OrderEnum.ASC);
-        selectBookQuery(bookQuery);
+//        BookQuery bookQuery =new BookQuery();
+//        bookQuery.setBookName("Programming the Raspberry Pi");
+//        bookQuery.setOrder("book_name");
+//        bookQuery.setOrderEnum(OrderEnum.ASC);
+//        selectBookQuery(bookQuery);
         //新增
 //        BookInsertDto bookInsertDto =new BookInsertDto();
 //        bookInsertDto.setIsbn("9781119017930");
@@ -65,6 +67,10 @@ public class MyBatisTest {
 
         //多參數查詢
 //        selectMember();
+
+        //一對一關聯
+//        selectOrderDetails();
+        selectOrderDetail(1);
     }
 
     public static void  bookSelectAll() throws IOException {
@@ -218,6 +224,37 @@ public class MyBatisTest {
         MemberMapper mapper =sqlSession.getMapper(MemberMapper.class);//傳入id 名稱
         List<Member> members=mapper.selectMember(2,null,null);
         members.forEach(data-> System.out.println(data));
+        sqlSession.close();
+    }
+
+    public  static  void selectOrderDetails()throws  IOException{
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);//拿到 Resource 底下的 xml
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);//透過stream 創立session factory
+
+        //獲取sqlSession ，用來執行sql
+        SqlSession sqlSession =sqlSessionFactory.openSession(true);//開true的話自動提交(預設是false)
+
+        //得到Mapper代理對象
+        OrderDetailMapper mapper =sqlSession.getMapper(OrderDetailMapper.class);//傳入id 名稱
+        List<OrderDetail> orderDetails=mapper.getAllOrderDetail();
+        orderDetails.forEach(data-> System.out.println(data));
+        sqlSession.close();
+    }
+
+    public  static  void selectOrderDetail(Integer orderId)throws  IOException{
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);//拿到 Resource 底下的 xml
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);//透過stream 創立session factory
+
+        //獲取sqlSession ，用來執行sql
+        SqlSession sqlSession =sqlSessionFactory.openSession(true);//開true的話自動提交(預設是false)
+
+
+        //得到Mapper代理對象
+        OrderDetailMapper mapper =sqlSession.getMapper(OrderDetailMapper.class);//傳入id 名稱
+        List<OrderDetail> orderDetails=mapper.getAllOrderDetailById(orderId);
+        orderDetails.forEach(data-> System.out.println(data));
         sqlSession.close();
     }
 }
